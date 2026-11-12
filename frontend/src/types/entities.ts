@@ -1,10 +1,10 @@
 export type User={email:string;name:string;role:string};
-export type Dataset={id:string;name:string;source:string;row_count:number;groups:string[];events:number;censored:number};
+export type Dataset={id:string;name:string;source:string;row_count:number;groups:string[];events:number;censored:number;delayed_entries?:number};
 export type Rule={id:string;name:string;cutoff_hours:number|null;note:string};
 export type Study={id:string;name:string;dataset_id:string;rule_id:string;group_a:string;group_b:string};
-export type CurvePoint={time:number;at_risk:number;events:number;censored:number;risk_after:number;survival:number;variance:number;ci95_low:number|null;ci95_high:number|null};
-export type GroupCurve={group:string;n:number;events:number;censored:number;curve:CurvePoint[];median_hours:number|null;has_failure_events:boolean;warning:string};
-export type Result={groups:GroupCurve[];logrank:{observed_minus_expected_a:number;variance:number;chi_square:number|null;p_value:number|null;df:number;estimable:boolean;warning:string;contributions:{time:number;n_a:number;n_b:number;d_a:number;d_b:number;expected_a:number;observed_minus_expected_a:number;variance_contribution:number}[]};rule:Rule;study:Study;included:number;excluded_other_groups:number;administratively_censored:number;checksum:string;limitations:string[]};
+export type CurvePoint={time:number;entries?:number;at_risk:number;events:number;censored:number;risk_after:number;survival:number;variance:number;ci95_low:number|null;ci95_high:number|null};
+export type GroupCurve={group:string;n:number;delayed_entries?:number;events:number;censored:number;curve:CurvePoint[];median_hours:number|null;has_failure_events:boolean;warning:string};
+export type Result={groups:GroupCurve[];logrank:{observed_minus_expected_a:number;variance:number;chi_square:number|null;p_value:number|null;df:number;estimable:boolean;warning:string;contributions:{time:number;n_a:number;n_b:number;d_a:number;d_b:number;expected_a:number;observed_minus_expected_a:number;variance_contribution:number}[]};rule:Rule;study:Study;included:number;excluded_other_groups:number;excluded_entry_not_before_cutoff?:number;delayed_entries?:number;administratively_censored:number;checksum:string;limitations:string[]};
 export type Run={id:string;study_id:string;status:string;result:Result;error:string};
 export type Review={id:string;run_id:string;comment:string;status:string;reviewer:string};
 export type Report={id:string;run_id:string;review_id:string;title:string};
