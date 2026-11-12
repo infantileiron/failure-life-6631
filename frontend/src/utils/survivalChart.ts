@@ -1,0 +1,3 @@
+import type {GroupCurve} from '../types/entities';
+export function stepPath(group:GroupCurve,maxTime:number){let d='M70 40',previous=1;for(const p of group.curve){const x=70+p.time/maxTime*960;d+=` L${x} ${40+(1-previous)*300} L${x} ${40+(1-p.survival)*300}`;previous=p.survival}return d}
+export function ciArea(group:GroupCurve,maxTime:number){const points=group.curve.filter(p=>p.ci95_low!==null&&p.ci95_high!==null);if(!points.length)return '';const band=(key:'ci95_low'|'ci95_high')=>{const out:string[]=[];let previous=points[0][key]!;for(const p of points){const x=70+p.time/maxTime*960;out.push(`${x},${40+(1-previous)*300}`,`${x},${40+(1-p[key]!)*300}`);previous=p[key]!}return out};return [...band('ci95_high'),...band('ci95_low').reverse()].join(' ')}

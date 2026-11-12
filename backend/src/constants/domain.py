@@ -1,0 +1,4 @@
+GROUP_LIMIT=8
+MAX_SPECIMENS=5000
+EVENT_CODES=(0,1)
+CENSORING_METHOD='independent_right_censoring'
